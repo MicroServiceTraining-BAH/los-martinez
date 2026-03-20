@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Los Martinez Mexican Street Food — Manassas, VA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* ── Custom Design Tokens ── */
+    :root {
+      --red:      #C41E3A;
+      --red-deep: #8B0E22;
+      --orange:   #E8612C;
+      --amber:    #F5A623;
+      --green:    #2C5F2E;
+      --green-lt: #4A8C4C;
+      --dark:     #1C0A00;
+      --dark-2:   #2E1503;
+      --cream:    #FFF8F0;
+      --sand:     #F5EBD8;
+      --white:    #FFFDF9;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--cream);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* ── Noise texture overlay ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    }
+
+    /* ── Typography ── */
+    .font-display { font-family: 'Bebas Neue', sans-serif; }
+    .font-serif   { font-family: 'Lora', serif; }
+
+    /* ── Navbar ── */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      transition: background 0.4s ease, box-shadow 0.4s ease;
+    }
+    #navbar.scrolled {
+      background: rgba(28, 10, 0, 0.96);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 32px rgba(196, 30, 58, 0.18);
+    }
+    .nav-link {
+      position: relative;
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 4px 0;
+      transition: color 0.25s ease;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--amber);
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover { color: var(--amber); }
+    .nav-link:hover::after { width: 100%; }
+    .nav-link:focus-visible {
+      outline: 2px solid var(--amber);
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
+
+    /* ── Hero ── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 30%, rgba(232, 97, 44, 0.35) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 20% 80%, rgba(196, 30, 58, 0.4) 0%, transparent 55%),
+        radial-gradient(ellipse 100% 100% at 50% 50%, rgba(28, 10, 0, 0.92) 0%, rgba(28, 10, 0, 0.75) 100%);
+    }
+    .hero-img {
+      position: absolute;
+      inset: 0;
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      filter: saturate(1.2) brightness(0.55);
+      mix-blend-mode: normal;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 0 1.5rem;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: var(--amber);
+      color: var(--dark);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 2px;
+      margin-bottom: 1.5rem;
+    }
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 12vw, 10rem);
+      line-height: 0.9;
+      color: #fff;
+      letter-spacing: -0.01em;
+      text-shadow: 0 8px 60px rgba(196, 30, 58, 0.5);
+    }
+    .hero-title span {
+      color: var(--amber);
+      display: block;
+    }
+    .hero-sub {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      color: rgba(255,255,255,0.75);
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      margin-top: 1.25rem;
+      letter-spacing: 0.02em;
+    }
+    .hero-ctas {
+      margin-top: 2.5rem;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ── Buttons ── */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--red);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 14px 32px;
+      border-radius: 3px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(196, 30, 58, 0.4), 0 1px 4px rgba(0,0,0,0.3);
+      transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+    }
+    .btn-primary:hover {
+      background: var(--red-deep);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(196, 30, 58, 0.55), 0 2px 8px rgba(0,0,0,0.3);
+    }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-primary:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 13px 32px;
+      border-radius: 3px;
+      border: 2px solid rgba(255,255,255,0.5);
+      cursor: pointer;
+      transition: border-color 0.25s ease, color 0.25s ease, background 0.25s ease, transform 0.2s ease;
+    }
+    .btn-outline:hover {
+      border-color: var(--amber);
+      color: var(--amber);
+      transform: translateY(-2px);
+    }
+    .btn-outline:active { transform: translateY(0); }
+    .btn-outline:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+
+    /* ── Scroll indicator ── */
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.45);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .scroll-hint-line {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(0.85); }
+    }
+
+    /* ── Section base ── */
+    .section {
+      position: relative;
+      z-index: 1;
+      padding: 100px 1.5rem;
+    }
+    .section-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+      color: var(--dark);
+    }
+    .divider-line {
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(to right, var(--red), var(--amber));
+      border-radius: 2px;
+      margin: 1.5rem 0;
+    }
+
+    /* ── About ── */
+    #about {
+      background: var(--dark);
+      color: #fff;
+    }
+    .about-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; gap: 40px; } }
+    .about-img-wrap {
+      position: relative;
+    }
+    .about-img-wrap img {
+      width: 100%;
+      height: 520px;
+      object-fit: cover;
+      border-radius: 4px;
+      filter: saturate(1.1);
+    }
+    .about-img-accent {
+      position: absolute;
+      top: -20px;
+      right: -20px;
+      width: 120px;
+      height: 120px;
+      border: 3px solid var(--amber);
+      border-radius: 4px;
+      z-index: -1;
+    }
+    .about-img-badge {
+      position: absolute;
+      bottom: -24px;
+      left: -24px;
+      background: var(--red);
+      color: #fff;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(196,30,58,0.5);
+    }
+    .about-img-badge .big { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; line-height: 1; }
+    .about-img-badge .sm  { font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.85; }
+    .about-text .section-title { color: #fff; }
+    .about-text .section-label { color: var(--amber); }
+    .about-body {
+      font-family: 'Lora', serif;
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.72);
+      margin-top: 1.5rem;
+    }
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 2.5rem;
+    }
+    .stat-box {
+      border-top: 2px solid var(--red);
+      padding-top: 1rem;
+    }
+    .stat-box .num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem;
+      color: var(--amber);
+      line-height: 1;
+    }
+    .stat-box .label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-top: 4px;
+    }
+
+    /* ── Menu ── */
+    #menu {
+      background: var(--cream);
+    }
+    .menu-inner { max-width: 1200px; margin: 0 auto; }
+    .menu-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 3rem;
+      margin-bottom: 3rem;
+    }
+    .tab-btn {
+      background: none;
+      border: 2px solid rgba(28,10,0,0.15);
+      color: var(--dark);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 10px 22px;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+    }
+    .tab-btn:hover {
+      border-color: var(--red);
+      color: var(--red);
+      transform: translateY(-1px);
+    }
+    .tab-btn:active { transform: translateY(0); }
+    .tab-btn:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+    .tab-btn.active {
+      background: var(--red);
+      border-color: var(--red);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(196,30,58,0.35);
+    }
+    .menu-panel { display: none; }
+    .menu-panel.active { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+    .menu-card {
+      background: var(--white);
+      border-radius: 4px;
+      overflow: hidden;
+      display: flex;
+      gap: 0;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      box-shadow: 0 2px 12px rgba(28,10,0,0.06), 0 1px 3px rgba(28,10,0,0.04);
+    }
+    .menu-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(28,10,0,0.12), 0 4px 12px rgba(28,10,0,0.06);
+    }
+    .menu-card-img {
+      width: 120px;
+      min-width: 120px;
+      height: 120px;
+      object-fit: cover;
+      filter: saturate(1.15);
+    }
+    .menu-card-body {
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex: 1;
+    }
+    .menu-card-name {
+      font-family: 'Lora', serif;
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--dark);
+      line-height: 1.3;
+    }
+    .menu-card-desc {
+      font-size: 0.75rem;
+      color: rgba(28,10,0,0.55);
+      line-height: 1.55;
+      margin-top: 4px;
+    }
+    .menu-card-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      color: var(--red);
+      margin-top: 10px;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── Specials Banner ── */
+    #specials {
+      background: linear-gradient(135deg, var(--red-deep) 0%, var(--red) 50%, var(--orange) 100%);
+      padding: 80px 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    #specials::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ccircle cx='30' cy='30' r='1.5' fill='rgba(255,255,255,0.06)'/%3E%3C/svg%3E");
+    }
+    .specials-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 40px;
+      position: relative;
+      z-index: 1;
+    }
+    @media (max-width: 768px) { .specials-inner { grid-template-columns: 1fr; } }
+    .special-card {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 4px;
+      padding: 36px 28px;
+      backdrop-filter: blur(8px);
+      transition: background 0.25s ease, transform 0.25s ease;
+    }
+    .special-card:hover {
+      background: rgba(255,255,255,0.16);
+      transform: translateY(-4px);
+    }
+    .special-card:focus-within {
+      outline: 2px solid rgba(255,255,255,0.6);
+      outline-offset: 3px;
+    }
+    .special-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .special-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      color: #fff;
+      letter-spacing: 0.02em;
+    }
+    .special-body {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      color: rgba(255,255,255,0.78);
+      font-size: 0.9rem;
+      line-height: 1.7;
+      margin-top: 0.75rem;
+    }
+
+    /* ── Gallery ── */
+    #gallery {
+      background: var(--dark-2);
+      padding: 100px 1.5rem;
+    }
+    .gallery-header {
+      max-width: 1200px;
+      margin: 0 auto 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    .gallery-header .section-title { color: #fff; }
+    .gallery-header .section-label { color: var(--amber); }
+    .gallery-ig-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--amber);
+      text-decoration: none;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: opacity 0.2s ease;
+    }
+    .gallery-ig-link:hover { opacity: 0.75; }
+    .gallery-ig-link:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; border-radius: 2px; }
+    .gallery-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 260px);
+      gap: 6px;
+    }
+    @media (max-width: 900px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+    }
+    @media (max-width: 480px) {
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+    }
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(1.1) brightness(0.88);
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.4s ease;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.06);
+      filter: saturate(1.3) brightness(1);
+    }
+    .gallery-item-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(28,10,0,0.7) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      display: flex;
+      align-items: flex-end;
+      padding: 1.25rem;
+    }
+    .gallery-item:hover .gallery-item-overlay { opacity: 1; }
+    .gallery-item-label {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      color: #fff;
+      font-size: 0.9rem;
+    }
+
+    /* ── Location & Contact ── */
+    #contact {
+      background: var(--sand);
+      padding: 100px 1.5rem;
+    }
+    .contact-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    @media (max-width: 768px) { .contact-inner { grid-template-columns: 1fr; gap: 48px; } }
+    .contact-info-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+    .info-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+    }
+    .info-icon {
+      width: 48px;
+      height: 48px;
+      min-width: 48px;
+      border-radius: 50%;
+      background: var(--red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(196,30,58,0.3);
+    }
+    .info-icon svg { width: 22px; height: 22px; color: #fff; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .info-text-label {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 4px;
+    }
+    .info-text-main {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      color: var(--dark);
+      line-height: 1.6;
+    }
+    .info-text-main a {
+      color: var(--dark);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .info-text-main a:hover { color: var(--red); }
+    .info-text-main a:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; border-radius: 2px; }
+    .hours-table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; }
+    .hours-table td {
+      font-size: 0.85rem;
+      padding: 5px 0;
+      color: var(--dark);
+    }
+    .hours-table td:first-child { font-weight: 600; width: 120px; }
+    .hours-table td:last-child { color: rgba(28,10,0,0.6); }
+
+    .map-wrap {
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 12px 48px rgba(28,10,0,0.12), 0 4px 16px rgba(28,10,0,0.06);
+      position: relative;
+    }
+    .map-wrap iframe {
+      display: block;
+      width: 100%;
+      height: 420px;
+      border: none;
+      filter: saturate(0.85) contrast(1.05);
+    }
+    .map-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: var(--red);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 2px;
+      box-shadow: 0 4px 12px rgba(196,30,58,0.4);
+    }
+    .rating-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--dark);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 99px;
+      margin-top: 1.5rem;
+    }
+    .rating-stars { color: var(--amber); letter-spacing: 1px; font-size: 0.8rem; }
+
+    /* ── Social strip ── */
+    #social {
+      background: var(--dark);
+      padding: 60px 1.5rem;
+    }
+    .social-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .social-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      color: #fff;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.5rem;
+    }
+    .social-sub {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      color: rgba(255,255,255,0.55);
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      border-radius: 3px;
+      transition: background 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+    }
+    .social-btn:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: var(--amber);
+      transform: translateY(-2px);
+    }
+    .social-btn:active { transform: translateY(0); }
+    .social-btn:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+    .social-btn svg { width: 18px; height: 18px; }
+
+    /* ── Footer ── */
+    footer {
+      background: #0E0500;
+      padding: 36px 1.5rem;
+      text-align: center;
+    }
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      color: #fff;
+      letter-spacing: 0.05em;
+    }
+    .footer-logo span { color: var(--amber); }
+    .footer-divider {
+      width: 40px;
+      height: 2px;
+      background: var(--red);
+      margin: 1rem auto;
+      border-radius: 2px;
+    }
+    .footer-copy {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.1em;
+    }
+    .footer-copy a { color: rgba(255,255,255,0.45); text-decoration: none; }
+    .footer-copy a:hover { color: var(--amber); }
+
+    /* ── Animations ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .fade-up:nth-child(2) { transition-delay: 0.1s; }
+    .fade-up:nth-child(3) { transition-delay: 0.2s; }
+    .fade-up:nth-child(4) { transition-delay: 0.3s; }
+    .fade-up:nth-child(5) { transition-delay: 0.4s; }
+    .fade-up:nth-child(6) { transition-delay: 0.5s; }
+  </style>
+</head>
+<body>
+
+  <!-- ══ NAVBAR ══ -->
+  <nav id="navbar" aria-label="Main navigation">
+    <div style="max-width:1200px; margin:0 auto; padding:20px 1.5rem; display:flex; align-items:center; justify-content:space-between;">
+      <a href="#hero" class="footer-logo" style="text-decoration:none; font-size:1.4rem; letter-spacing:0.06em;">
+        LOS <span>MARTINEZ</span>
+      </a>
+      <!-- Desktop links -->
+      <div style="display:flex; gap:2.5rem; align-items:center;" class="nav-desktop">
+        <a href="#about"   class="nav-link">About</a>
+        <a href="#menu"    class="nav-link">Menu</a>
+        <a href="#gallery" class="nav-link">Gallery</a>
+        <a href="#contact" class="nav-link">Find Us</a>
+        <a href="tel:7033982368" class="btn-primary" style="padding:10px 22px; font-size:0.68rem;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.69 11.5a19.79 19.79 0 01-3.07-8.67A2 2 0 013.59 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.91 8.54a16 16 0 006.29 6.29l.96-.96a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          (703) 398-2368
+        </a>
+      </div>
+      <!-- Mobile hamburger -->
+      <button id="menuToggle" aria-label="Open menu" style="display:none; background:none; border:none; cursor:pointer; padding:4px;">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+    <!-- Mobile menu -->
+    <div id="mobileMenu" style="display:none; background:rgba(14,5,0,0.98); padding:1.5rem; flex-direction:column; gap:1.5rem; border-top:1px solid rgba(255,255,255,0.08);">
+      <a href="#about"   class="nav-link" onclick="closeMobile()">About</a>
+      <a href="#menu"    class="nav-link" onclick="closeMobile()">Menu</a>
+      <a href="#gallery" class="nav-link" onclick="closeMobile()">Gallery</a>
+      <a href="#contact" class="nav-link" onclick="closeMobile()">Find Us</a>
+      <a href="tel:7033982368" class="btn-primary" style="text-align:center; justify-content:center;">(703) 398-2368</a>
+    </div>
+  </nav>
+
+  <!-- ══ HERO ══ -->
+  <section id="hero" aria-label="Hero">
+    <img
+      class="hero-img"
+      src="https://placehold.co/1920x1080/3d1503/7a3010?text=Los+Martinez"
+      alt="Colorful Mexican street tacos"
+      loading="eager"
+    />
+    <div class="hero-bg"></div>
+    <!-- Decorative radial glow -->
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 55% 45% at 50% 55%, rgba(232,97,44,0.18) 0%, transparent 65%); pointer-events:none; z-index:1;"></div>
+    <div class="hero-content" aria-label="Hero content">
+      <div class="hero-tag">🌮 Manassas, Virginia</div>
+      <h1 class="hero-title">
+        Los<br/><span>Martinez</span>
+      </h1>
+      <p class="hero-sub">Authentic Mexican Street Food — Crafted with Heart</p>
+      <div class="hero-ctas">
+        <a href="#menu" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+          View Menu
+        </a>
+        <a href="#contact" class="btn-outline">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Find Us
+        </a>
+      </div>
+      <!-- Rating badge -->
+      <div style="margin-top:3rem; display:inline-flex; align-items:center; gap:12px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.12); border-radius:99px; padding:10px 20px; backdrop-filter:blur(8px);">
+        <span style="color:var(--amber); font-size:1rem; letter-spacing:2px;">★★★★★</span>
+        <span style="color:#fff; font-size:0.78rem; font-weight:600;">4.9 Stars</span>
+        <span style="color:rgba(255,255,255,0.35); font-size:0.7rem;">Google Reviews</span>
+      </div>
+    </div>
+    <div class="scroll-hint" aria-hidden="true">
+      <span>Scroll</span>
+      <div class="scroll-hint-line"></div>
+    </div>
+  </section>
+
+  <!-- ══ ABOUT ══ -->
+  <section id="about" class="section" aria-labelledby="about-title">
+    <div class="about-grid">
+      <div class="about-img-wrap fade-up">
+        <img src="https://placehold.co/600x520/3d1e0a/7a4020?text=Our+Kitchen" alt="Los Martinez kitchen and team" />
+        <div class="about-img-accent" aria-hidden="true"></div>
+        <div class="about-img-badge" aria-label="Family owned">
+          <span class="big">100%</span>
+          <span class="sm">Family<br/>Owned</span>
+        </div>
+      </div>
+      <div class="about-text fade-up">
+        <p class="section-label">Our Story</p>
+        <h2 class="section-title" id="about-title">Rooted in<br/>Tradition</h2>
+        <div class="divider-line"></div>
+        <p class="about-body">
+          Los Martinez brings the bold, vibrant flavors of Mexican street food to the heart of Historic District Manassas. Every recipe is a tribute to generations of family cooking — from slow-braised meats to hand-pressed tortillas, crafted fresh every day.
+        </p>
+        <p class="about-body" style="margin-top:1rem;">
+          We believe great food should be soulful, honest, and shareable. Whether you're grabbing quick tacos or a full spread, we pour the same love into every single plate.
+        </p>
+        <div class="about-stats">
+          <div class="stat-box fade-up">
+            <div class="num">4.9★</div>
+            <div class="label">Google Rating</div>
+          </div>
+          <div class="stat-box fade-up">
+            <div class="num">100%</div>
+            <div class="label">Authentic Recipes</div>
+          </div>
+          <div class="stat-box fade-up">
+            <div class="num">Fresh</div>
+            <div class="label">Made Daily</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SPECIALS ══ -->
+  <section id="specials" aria-labelledby="specials-title">
+    <div style="max-width:1100px; margin:0 auto; text-align:center; margin-bottom:4rem; position:relative; z-index:1;">
+      <p style="font-size:0.65rem; font-weight:700; letter-spacing:0.25em; text-transform:uppercase; color:rgba(255,255,255,0.6); margin-bottom:0.75rem;">Why Los Martinez</p>
+      <h2 id="specials-title" class="section-title" style="color:#fff;">The Martinez<br/>Difference</h2>
+    </div>
+    <div class="specials-inner">
+      <div class="special-card fade-up" tabindex="0">
+        <div class="special-icon" aria-hidden="true">🌽</div>
+        <h3 class="special-title">Fresh Every Day</h3>
+        <p class="special-body">We make our salsas, marinades, and tortillas fresh daily. No shortcuts — just honest, made-from-scratch flavors that you can taste in every bite.</p>
+      </div>
+      <div class="special-card fade-up" tabindex="0">
+        <div class="special-icon" aria-hidden="true">🔥</div>
+        <h3 class="special-title">Bold & Authentic</h3>
+        <p class="special-body">Our recipes stay true to their Mexican roots — rich adobo, smoky chipotle, and bright citrus marinades that transport you straight to the streets of Mexico City.</p>
+      </div>
+      <div class="special-card fade-up" tabindex="0">
+        <div class="special-icon" aria-hidden="true">❤️</div>
+        <h3 class="special-title">Community First</h3>
+        <p class="special-body">Based in the heart of Manassas Mall, we're proud to be part of this community — serving neighbors, families, and food lovers who deserve real, delicious street food.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ MENU ══ -->
+  <section id="menu" class="section" aria-labelledby="menu-title">
+    <div class="menu-inner">
+      <p class="section-label">What We Serve</p>
+      <h2 class="section-title" id="menu-title">Our Menu</h2>
+      <div class="divider-line"></div>
+
+      <div class="menu-tabs" role="tablist" aria-label="Menu categories">
+        <button class="tab-btn active" onclick="switchTab('tacos')"   role="tab" aria-selected="true"  aria-controls="panel-tacos">🌮 Tacos</button>
+        <button class="tab-btn"        onclick="switchTab('burritos')" role="tab" aria-selected="false" aria-controls="panel-burritos">🌯 Burritos</button>
+        <button class="tab-btn"        onclick="switchTab('tortas')"   role="tab" aria-selected="false" aria-controls="panel-tortas">🥖 Tortas</button>
+        <button class="tab-btn"        onclick="switchTab('quesadillas')" role="tab" aria-selected="false" aria-controls="panel-quesadillas">🧀 Quesadillas</button>
+        <button class="tab-btn"        onclick="switchTab('drinks')"   role="tab" aria-selected="false" aria-controls="panel-drinks">🥤 Drinks</button>
+      </div>
+
+      <!-- TACOS -->
+      <div id="panel-tacos" class="menu-panel active" role="tabpanel" aria-label="Tacos menu">
+        <div class="menu-card">
+          <img src="https://placehold.co/120x120/8b4513/d2691e?text=Taco" alt="Al Pastor taco" class="menu-card-img" />
+          <div class="menu-card-body">
+            <div>
+              <div class="menu-card-name">Al Pastor</div>
+              <div class="menu-card-desc">Slow-roasted pork with pineapple, onion, cilantro & salsa verde on a hand-pressed corn tortilla.</div>
+            </div>
+            <div class="menu-card-price">$3.50</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img src="https://placehold.co/120x120/6b3a2a/c07050?text=Carne" alt="Carne Asada taco" class="menu-card-img" />
+          <div class="menu-card-body">
+            <div>
+              <div class="menu-card-name">Carne Asada</div>
+              <div class="menu-card-desc">Grilled citrus-marinated beef, diced onion, fresh cilantro, and house-made red salsa.</div>
+            </div>
+            <div class="menu-card-price">$4.00</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img src="https://placehold.co/120x120/4a2c12/7a5028?text=Pollo" alt="Pollo taco" class="menu-card-img" />
+          <div class="menu-card-body">
+            <div>
+              <div class="menu-card-name">Pollo Adobado</div>
+              <div class="menu-card-desc">Chipotle-marinated grilled chicken with pickled jalapeño, avocado crema & pico de gallo.</div>
+            </div>
+            <div class="menu-card-price">$3.75</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img src="https://placehold.co/120x120/2c4a1c/507030?text=Veggie" alt="Veggie taco" class="menu-card-img" />
+          <div class="menu-card-body">
+            <div>
+              <div class="menu-card-name">Veggie Street</div>
+              <div class="menu-card-desc">Charred corn, zucchini, rajas poblanas, black beans & guacamole on blue corn tortilla.</div>
+            </div>
+            <div class="menu-card-price">$3.50</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img src="https://placehold.co/120x120/5a2010/a04030?text=Pork" alt="Carnitas taco" class="menu-card-img" />
+          <div class="menu-card-body">
+            <div>
+              <div class="menu-card-name">Carnitas</div>
+              <div class="menu-card-desc">Slow-braised pork shoulder cooked in lard until golden-crispy, topped with pickled red onion.</div>
+            </div>
+            <div class="menu-card-price">$3.75</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img src="https://placehold.co/120x120/3a1a28/703050?text=Pescado" alt="Pescado taco" class="menu-card-img" />
+          <div class="menu-card-body">
+            <div>
+              <div class="menu-card-name">Pescado Baja</div>
+              <div class="menu-card-desc">Beer-battered tilapia, shredded cabbage, chipotle mayo & fresh lime on flour tortilla.</div>
+            </div>
+            <div class="menu-card-price">$4.25</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BURRITOS -->
+      <div id="panel-burritos" class="menu-panel" role="tabpanel" aria-label="Burritos menu">
+        <div class="menu-card">
+          <img src="https://placehold.co/120x120/7a3010/c05030?text=Burrito" alt="Burrito California" class="menu-card-img" />
+          <div class="menu-card-body">
+            <div>
+              <div class="menu-card-name">Burrito California</div>
+              <div class="menu-card-desc">Carne asada, french fries, cheese, sour cream, guac & pico wrapped in a giant flour tortilla.</div>
+            </div>
+            <div class="menu-card-price">$12.50</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img src="https://placehold.co/120x120/5a2a14/9a5030?text=Carne" alt="Burrito al Pastor" class="menu-card-img" />
+          <div class="menu-card-body">
+            <div>
+              <div class="menu-card-name">Al Pastor Burrito</div>
+              <div class="menu-card-desc">Al pastor pork, rice, black beans, salsa roja, cheese & sour cream. A street-food classic.</div>
+            </div>
+            <div class="menu-card-price">$11.50</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img src="https://placehold.co/120x120/2a4a18/507028?text=Veggie" alt="Veggie Burrito" class="menu-card-img" />
+          <div class="menu-card-body">
+            <div>
+              <div class="menu-card-name">Veggie Power</div>
+              <div class="menu-card-desc">Roasted veggies, cilantro-lime rice, pinto beans, guacamole & chipotle crema.</div>
+            </div>
+            <div class="menu-card-price">$10.50</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img src="https://placehold.co/120x120/4a1818/8a3030?text=Pollo" alt="Pollo Burrito" class="menu-card-img" />
+          <div class="menu-card-body">
+            <div>
+              <div class="menu-card-name">Pollo Asado Burrito</div>
+              <div class="menu-card-desc">Grilled achiote chicken, Spanish rice, refried beans, pico & shredded Mexican cheese blend.</div>
+            </div>
+            <div class="menu-card-price">$11.00</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TORTAS -->
+      <div id="panel-tortas" class="menu-panel" role="tabpanel" aria-label="Tortas menu">
+        <div class="menu-card">
+          <img src="https://placehold.co/120x120/8a5020/c08040?text=Torta" alt="Torta Cubana" class="menu-card-img" />
+          <div class="menu-card-body">
+            <div>
+              <div class="menu-card-name">Torta Cubana</div>
+              <div class="menu-card-desc">Loaded with milanesa, ham, chorizo, egg, cheese, avocado, jalapeño & chipotle on telera roll.</div>
+            </div>
+            <div class="menu-card-price">$13.50</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img src="https://placehold.co/120x120/6a3814/aa6830?text=Carne" alt="Torta Asada" class="menu-card-img" />
+          <div class="menu-card-body">
+            <div>
+              <div class="menu-card-name">Carne Asada Torta</div>
+              <div class="menu-card-desc">Grilled marinated beef, refried beans, avocado, pickled jalapeños & crema on fresh telera.</div>
+            </div>
+            <div class="menu-card-price">$12.00</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img src="https://placehold.co/120x120/4a2c18/8a5038?text=Pork" alt="Torta de Carnitas" class="menu-card-img" />
+          <div class="menu-card-body">
+            <div>
+              <div class="menu-card-name">Carnitas Torta</div>
+              <div class="menu-card-desc">Crispy carnitas, black beans, queso Oaxaca, pickled onion & green salsa. Pure comfort.</div>
+            </div>
+            <div class="menu-card-price">$12.00</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- QUESADILLAS -->
+      <div id="panel-quesadillas" class="menu-panel" role="tabpanel" aria-label="Quesadillas menu">
+        <div class="menu-card">
+          <img src="https://placehold.co/120x120/9a7020/d4a840?text=Queso" alt="Quesadilla Al Pastor" class="menu-card-img" />
+          <div class="menu-card-body">
+            <div>
+              <div class="menu-card-name">Al Pastor Quesadilla</div>
+              <div class="menu-card-desc">Al pastor pork, Oaxacan cheese, caramelized onions & pineapple salsa. Pressed golden-crisp.</div>
+            </div>
+            <div class="menu-card-price">$10.00</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img src="https://placehold.co/120x120/7a5018/b88030?text=Pollo" alt="Chicken Quesadilla" class="menu-card-img" />
+          <div class="menu-card-body">
+            <div>
+              <div class="menu-card-name">Pollo Quesadilla</div>
+              <div class="menu-card-desc">Grilled chicken, roasted pepper strips, Monterey Jack cheese, served with sour cream & salsa.</div>
+            </div>
+            <div class="menu-card-price">$9.50</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img src="https://placehold.co/120x120/3a4a18/607030?text=Veggie" alt="Veggie Quesadilla" class="menu-card-img" />
+          <div class="menu-card-body">
+            <div>
+              <div class="menu-card-name">Veggie Quesadilla</div>
+              <div class="menu-card-desc">Seasonal roasted vegetables, black beans, Chihuahua cheese blend, chipotle crema & salsa verde.</div>
+            </div>
+            <div class="menu-card-price">$8.50</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DRINKS -->
+      <div id="panel-drinks" class="menu-panel" role="tabpanel" aria-label="Drinks menu">
+        <div class="menu-card">
+          <img src="https://placehold.co/120x120/8b1a4a/c05080?text=Drink" alt="Agua de Jamaica" class="menu-card-img" />
+          <div class="menu-card-body">
+            <div>
+              <div class="menu-card-name">Agua de Jamaica</div>
+              <div class="menu-card-desc">Classic hibiscus flower water — tart, refreshing, lightly sweetened. A Mexican staple.</div>
+            </div>
+            <div class="menu-card-price">$3.00</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img src="https://placehold.co/120x120/5a7a28/88b050?text=Horchata" alt="Agua de Horchata" class="menu-card-img" />
+          <div class="menu-card-body">
+            <div>
+              <div class="menu-card-name">Horchata</div>
+              <div class="menu-card-desc">Creamy cinnamon rice water with a hint of vanilla. Smooth, sweet, and perfectly refreshing.</div>
+            </div>
+            <div class="menu-card-price">$3.00</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img src="https://placehold.co/120x120/3a6a28/60a048?text=Tamarindo" alt="Agua de Tamarindo" class="menu-card-img" />
+          <div class="menu-card-body">
+            <div>
+              <div class="menu-card-name">Agua de Tamarindo</div>
+              <div class="menu-card-desc">Sweet-sour tamarind water with a hint of chili salt on the rim. Bold & uniquely delicious.</div>
+            </div>
+            <div class="menu-card-price">$3.00</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <img src="https://placehold.co/120x120/4a1a38/804060?text=Coke" alt="Mexican Coke" class="menu-card-img" />
+          <div class="menu-card-body">
+            <div>
+              <div class="menu-card-name">Mexican Coke</div>
+              <div class="menu-card-desc">The real thing — cane sugar Coca-Cola in a glass bottle. Because some classics can't be improved.</div>
+            </div>
+            <div class="menu-card-price">$3.50</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ GALLERY ══ -->
+  <section id="gallery" aria-labelledby="gallery-title">
+    <div class="gallery-header">
+      <div>
+        <p class="section-label">Visual Flavor</p>
+        <h2 class="section-title" id="gallery-title">Fresh From<br/>The Kitchen</h2>
+      </div>
+      <a href="https://www.instagram.com/martinezmexfood/" target="_blank" rel="noopener noreferrer" class="gallery-ig-link">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+        @martinezmexfood
+      </a>
+    </div>
+    <div class="gallery-grid" style="max-width:1200px; margin:0 auto;">
+      <div class="gallery-item">
+        <img src="https://placehold.co/600x520/4a2010/9a5030?text=Signature+Tacos" alt="Signature tacos" />
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Signature Street Tacos</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://placehold.co/300x260/2a4018/508030?text=Guacamole" alt="Fresh guacamole" />
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Fresh Guacamole</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://placehold.co/300x260/6a2808/c04810?text=Al+Pastor" alt="Al Pastor" />
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Al Pastor on the Trompo</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://placehold.co/300x260/8a5818/c08828?text=Aguas+Frescas" alt="Aguas frescas" />
+        <div class="gallery-item-overlay"><span class="gallery-item-label">House Aguas Frescas</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://placehold.co/300x260/3a1a28/7a3a58?text=Burritos" alt="Burritos" />
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Monster Burritos</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CONTACT ══ -->
+  <section id="contact" class="section" aria-labelledby="contact-title">
+    <div class="contact-inner">
+      <div>
+        <p class="section-label">Visit Us</p>
+        <h2 class="section-title" id="contact-title">Find Los<br/>Martinez</h2>
+        <div class="divider-line"></div>
+        <div class="contact-info-block" style="margin-top:2.5rem;">
+          <div class="info-row fade-up">
+            <div class="info-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <div class="info-text-label">Location</div>
+              <div class="info-text-main">
+                Manassas Mall (Historic District)<br/>
+                Manassas, VA 20109
+              </div>
+            </div>
+          </div>
+          <div class="info-row fade-up">
+            <div class="info-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.69 11.5a19.79 19.79 0 01-3.07-8.67A2 2 0 013.59 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.91 8.54a16 16 0 006.29 6.29l.96-.96a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            </div>
+            <div>
+              <div class="info-text-label">Phone</div>
+              <div class="info-text-main"><a href="tel:7033982368">(703) 398-2368</a></div>
+            </div>
+          </div>
+          <div class="info-row fade-up">
+            <div class="info-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div>
+              <div class="info-text-label">Hours</div>
+              <table class="hours-table" aria-label="Business hours">
+                <tr><td>Mon – Thu</td><td>11:00 AM – 9:00 PM</td></tr>
+                <tr><td>Friday</td><td>11:00 AM – 10:00 PM</td></tr>
+                <tr><td>Saturday</td><td>10:00 AM – 10:00 PM</td></tr>
+                <tr><td>Sunday</td><td>10:00 AM – 8:00 PM</td></tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="rating-pill" aria-label="4.9 star rating on Google">
+          <span class="rating-stars">★★★★★</span>
+          <span style="font-size:0.78rem; font-weight:700;">4.9</span>
+          <span style="color:rgba(255,255,255,0.45); font-size:0.7rem; font-weight:400;">on Google · 12 reviews</span>
+        </div>
+      </div>
+      <div>
+        <div class="map-wrap fade-up">
+          <div class="map-badge" aria-hidden="true">📍 We're Here</div>
+          <iframe
+            title="Los Martinez location map"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24857.789!2d-77.477!3d38.751!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b6434b71f6cbf5%3A0x2c91e80b5c40f12!2sManassas+Mall%2C+Manassas%2C+VA+20109!5e0!3m2!1sen!2sus!4v1710000000000"
+          ></iframe>
+        </div>
+        <a href="tel:7033982368" class="btn-primary" style="margin-top:1.5rem; display:inline-flex;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.69 11.5a19.79 19.79 0 01-3.07-8.67A2 2 0 013.59 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.91 8.54a16 16 0 006.29 6.29l.96-.96a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          Call to Order
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SOCIAL ══ -->
+  <section id="social" aria-labelledby="social-title">
+    <div class="social-inner">
+      <h2 class="social-title" id="social-title">Follow Our Story</h2>
+      <p class="social-sub">Fresh drops, behind-the-scenes, and daily specials — follow us.</p>
+      <div class="social-links">
+        <a href="https://www.instagram.com/martinezmexfood/" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Follow Los Martinez on Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+          Instagram
+        </a>
+        <a href="https://www.facebook.com/groups/ourmanassastalk/posts/1240254393939258/" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Find Los Martinez on Facebook">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          Facebook
+        </a>
+        <a href="tel:7033982368" class="social-btn" aria-label="Call Los Martinez">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.69 11.5a19.79 19.79 0 01-3.07-8.67A2 2 0 013.59 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.91 8.54a16 16 0 006.29 6.29l.96-.96a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          (703) 398-2368
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer>
+    <div class="footer-logo">LOS <span>MARTINEZ</span></div>
+    <div class="footer-divider"></div>
+    <p class="footer-copy">
+      © 2026 Los Martinez Mexican Street Food · Manassas Mall, Manassas, VA 20109 ·
+      <a href="tel:7033982368">(703) 398-2368</a>
+    </p>
+  </footer>
+
+  <script>
+    /* ── Navbar scroll effect ── */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) navbar.classList.add('scrolled');
+      else navbar.classList.remove('scrolled');
+    }, { passive: true });
+
+    /* ── Mobile menu ── */
+    const toggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const navDesktop = document.querySelector('.nav-desktop');
+
+    function showHideNav() {
+      if (window.innerWidth < 768) {
+        toggle.style.display = 'block';
+        navDesktop.style.display = 'none';
+      } else {
+        toggle.style.display = 'none';
+        navDesktop.style.display = 'flex';
+        mobileMenu.style.display = 'none';
+      }
+    }
+    showHideNav();
+    window.addEventListener('resize', showHideNav);
+
+    let mobileOpen = false;
+    toggle.addEventListener('click', () => {
+      mobileOpen = !mobileOpen;
+      mobileMenu.style.display = mobileOpen ? 'flex' : 'none';
+    });
+    function closeMobile() {
+      mobileOpen = false;
+      mobileMenu.style.display = 'none';
+    }
+
+    /* ── Menu tabs ── */
+    function switchTab(id) {
+      document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      document.getElementById('panel-' + id).classList.add('active');
+      const btn = [...document.querySelectorAll('.tab-btn')].find(b => b.getAttribute('onclick').includes(id));
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+    }
+
+    /* ── Intersection Observer for fade-up animations ── */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+
+  <style>
+    @media (max-width: 768px) {
+      .nav-desktop { display: none !important; }
+      #menuToggle  { display: block !important; }
+      .about-img-badge { width: 90px; height: 90px; bottom: -16px; left: -12px; }
+      .about-img-accent { top: -12px; right: -12px; width: 80px; height: 80px; }
+    }
+  </style>
+</body>
+</html>
